@@ -1,0 +1,140 @@
+.App{
+  width: 50%;
+  height: 100vh;
+  margin: 0 auto;
+  padding:  2rem;
+  color: white;
+ }
+ 
+ .form{
+   margin-bottom: 1rem;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+ }
+ 
+ input{
+     background-color: transparent;
+     border: none;
+     outline: none;
+     height: 5rem;
+     caret-color: royalblue;
+     margin-right: 1rem;
+    color: #fff;
+ }
+ 
+ .avatar{
+   height:50px;
+   width:50px;
+   border-radius:50%;
+   vertical-align: middle;
+   margin-right: 1rem;
+ }
+ 
+ button{
+   color: rgb(255, 255, 255);
+   background-color: #5594e3;
+   border-radius: 22px;
+   padding: 0.4rem 1rem;
+   border: none;
+   cursor: pointer;
+ }
+ 
+ button:hover{
+   background-color: #5595e3c7;
+ 
+ }
+ 
+ body {
+   background: #232628;
+   font-family: 'Asap', sans-serif;
+   font-family: 'Roboto', sans-serif;
+   color: #fff;
+ }
+ img {
+   max-width:100%;
+ }
+ .avator {
+   border-radius:100px;
+   width:48px;
+   margin-right: 15px;
+ }
+ 
+ 
+ .tweet-wrap {
+   max-width:490px;
+   background: rgb(0, 0, 0);
+   margin-top: 50px;
+   border-radius:15px;
+   padding: 30px;
+ }
+ 
+ .tweet-header {
+   display: flex;
+   align-items:flex-start;
+   font-size:14px;
+ }
+ .tweet-header-info {
+   font-weight:bold;
+ }
+ .tweet-header-info span {
+   color:#657786;
+   font-weight:normal;
+   margin-left: 5px;
+ }
+ .tweet-header-info p {
+   font-weight:normal;
+   margin-top: 5px;
+   
+ }
+ .tweet-img-wrap {
+   padding-left: 60px;
+ }
+ 
+ .tweet-info-counts {
+   display: flex;
+   margin-left: 60px;
+   margin-top: 10px;
+ }
+ .tweet-info-counts div {
+   display: flex;
+   margin-right: 20px;
+ }
+ .tweet-info-counts div svg {
+   color:#657786;
+   margin-right: 10px;
+   cursor: pointer;
+ }
+ 
+ .btn-fetch{
+   width: 100%;
+   border-radius: 0.3rem;
+   margin: 1rem 0;
+ }
+ 
+ 
+ @media screen and (max-width:430px){
+   body {
+     padding-left: 20px;
+     padding-right: 20px;
+   }
+   .tweet-header {
+     flex-direction:column;
+   }
+   .tweet-header img {
+     margin-bottom: 20px;
+   }
+   .tweet-header-info p {
+     margin-bottom: 30px;
+   }
+   .tweet-img-wrap {
+     padding-left: 0;
+   }
+   .tweet-info-counts {
+   display: flex;
+   margin-left: 0;
+ }
+ .tweet-info-counts div {
+   margin-right: 10px;
+ }
+ }
