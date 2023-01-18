@@ -3,6 +3,7 @@ import Avatar from './Avatar';
 
 interface ITweet {
     content: string
+    loading:boolean
 }
 
 const Tweet = ({content}: ITweet) => {

@@ -1,43 +1,54 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {  createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { call, put, takeEvery } from "redux-saga/effects";
+// import { addTweetFetch } from "../redux/tweetSlice";
 
-interface IState{
-    data: string[]
-}
+interface IState{ data: string[], loading: boolean }
+const initialState: IState = { data: [], loading: false }
 
 interface Posts {
-    body: string
+  json(): unknown;
+  body: string;
+}
+
+
+function* fetchSaga() {
+  try {
+    const posts: Posts = yield call(() =>
+      fetch("https://jsonplaceholder.typicode.com/posts",{method: "GET"})
+    );
+    const data: Posts[] = yield posts.json();
+    const result = data.map((post) => post.body);
+
+    yield put(addTweetFetch(result));
+  } catch (error) {
+    console.log("The error", error);
   }
+}
 
-const initialState: IState = {data: []}
-
-export const getPosts = createAsyncThunk("tweets/getPosts", async()=>{
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-    const data: Posts[] = await res.json()
-  
-    const posts = data.map(post => post.body)
-  
-    return posts
-})
-
+export  function* getPosts() {
+  yield takeEvery("tweets/tweetLoading", fetchSaga);
+}
 
 const tweetSlice = createSlice({
-    name: "tweets",
-    initialState,
-    reducers: {
-        addTweet: (state, action: PayloadAction<string>)=>{
-            state.data.unshift(action.payload)
-            console.log('manual',action)
-        }
+  name: "tweets",
+  initialState,
+  reducers: {
+    addTweetFetch: (state, action: PayloadAction<string[]>) => {
+      const { data } = state;
+      data.push(...action.payload);
+      state.loading = false;
     },
-    extraReducers: builder =>{
-        builder
-            .addCase(getPosts.fulfilled, (state, action: PayloadAction<string[]>)=>{
-                console.log('esto',action)
-                state.data.push(...action.payload)
-            })
-    }
-})
+    addTweet: (state, action: PayloadAction<string>) => {
+      const { data } = state;
+        data.unshift(action.payload)
+      state.loading = false;
+    },
+    tweetLoading: (state) => {
+      state.loading = true;
+    },
+  },
+});
 
-export const { addTweet } = tweetSlice.actions
+export const { addTweet, tweetLoading, addTweetFetch } = tweetSlice.actions;
 
 export default tweetSlice.reducer
