@@ -1,14 +1,9 @@
 import {  createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { call, put, takeEvery } from "redux-saga/effects";
-// import { addTweetFetch } from "../redux/tweetSlice";
+import { Posts,IState } from "./types";
 
-interface IState{ data: string[], loading: boolean }
+
 const initialState: IState = { data: [], loading: false }
-
-interface Posts {
-  json(): unknown;
-  body: string;
-}
 
 
 function* fetchSaga() {
@@ -29,26 +24,34 @@ export  function* getPosts() {
   yield takeEvery("tweets/tweetLoading", fetchSaga);
 }
 
+
+
 const tweetSlice = createSlice({
   name: "tweets",
   initialState,
   reducers: {
-    addTweetFetch: (state, action: PayloadAction<string[]>) => {
-      const { data } = state;
-      data.push(...action.payload);
-      state.loading = false;
-    },
     addTweet: (state, action: PayloadAction<string>) => {
-      const { data } = state;
-        data.unshift(action.payload)
+      state.data.unshift(action.payload);
       state.loading = false;
     },
     tweetLoading: (state) => {
       state.loading = true;
     },
+    // addTweetFetch: (state, action: PayloadAction<string[]>) => {
+    //   state.data.push(...action.payload);
+    //   state.loading = false;
+    // },
+    extraReducers: (builder) => {
+      builder.addCase(
+        getPosts.fulfilled,
+        (state, action: PayloadAction<string[]>) => {
+          state.data.push(...action.payload);
+        }
+      );
+    },
   },
 });
 
-export const { addTweet, tweetLoading, addTweetFetch } = tweetSlice.actions;
+export const { addTweet, tweetLoading, /**addTweetFetch */ } = tweetSlice.actions;
 
 export default tweetSlice.reducer
