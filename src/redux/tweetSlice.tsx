@@ -1,6 +1,7 @@
-import {  createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Posts,IState } from "./types";
+
+// import { call, put, takeEvery } from "redux-saga/effects";
 
 
 const initialState: IState = { data: [], loading: false }
@@ -8,13 +9,13 @@ const initialState: IState = { data: [], loading: false }
 
 function* fetchSaga() {
   try {
-    const posts: Posts = yield call(() =>
+    const posts: Posts[] = yield call(() =>
       fetch("https://jsonplaceholder.typicode.com/posts",{method: "GET"})
     );
-    const data: Posts[] = yield posts.json();
+    // const data: Posts[] = yield posts.json();
     const result = data.map((post) => post.body);
 
-    yield put(addTweetFetch(result));
+    // yield put(addTweetFetch(result));
   } catch (error) {
     console.log("The error", error);
   }
