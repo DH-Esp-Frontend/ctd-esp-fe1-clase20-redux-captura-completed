@@ -1,8 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { getPosts } from "../redux/tweetSlice";
-import Tweet from './Tweet'
-
-
+import Tweet from './Tweet';
 
 
 const Tweets = () => {

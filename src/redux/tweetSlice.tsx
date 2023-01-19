@@ -12,6 +12,9 @@ export const getPosts = createAsyncThunk("tweets/getPosts", async () => {
   return posts;
 });
 
+
+
+
 const tweetSlice = createSlice({
   name: "tweets",
   initialState,
