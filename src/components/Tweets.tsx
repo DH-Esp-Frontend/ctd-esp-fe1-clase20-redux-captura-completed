@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import {tweetLoading} from "../redux/tweetSlice";
+import { getPosts } from "../redux/tweetSlice";
 import Tweet from './Tweet'
 
 
@@ -11,8 +11,12 @@ const Tweets = () => {
 
     return (
       <>
-        {data.length != 0 ? data.map((tweet,index) => <Tweet key={index} content={tweet} loading={loading}/>):null}
-        <button className="btn-fetch" onClick={() => dispatch(tweetLoading())}>
+        {data.length != 0
+          ? data.map((tweet, index) => (
+              <Tweet key={index} content={tweet} loading={loading} />
+            ))
+          : null}
+        <button className="btn-fetch" onClick={() => dispatch(getPosts())}>
           Fetch More
         </button>
       </>
