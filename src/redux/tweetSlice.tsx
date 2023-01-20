@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Res, IState, Posts } from "./types";
 
-const initialState: IState = { data: [], loading: false };
+interface IState {
+  data: string[];
+}
+
+interface Posts {
+  body: string;
+}
+
+const initialState: IState = { data: [] };
 
 export const getPosts = createAsyncThunk("tweets/getPosts", async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -12,18 +19,12 @@ export const getPosts = createAsyncThunk("tweets/getPosts", async () => {
   return posts;
 });
 
-
-
-
 const tweetSlice = createSlice({
   name: "tweets",
   initialState,
   reducers: {
     addTweet: (state, action: PayloadAction<string>) => {
       state.data.unshift(action.payload);
-    },
-    getPosts: (state) => {
-      state.loading = true;
     },
   },
   extraReducers: (builder) => {

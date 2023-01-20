@@ -6,6 +6,6 @@ export interface IState {
   data: string[];
   loading: boolean;
 }
-export interface Posts {
+export interface Data {
   body: string;
 }
