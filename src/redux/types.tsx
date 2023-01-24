@@ -4,7 +4,7 @@ export interface Res {
 }
 export interface IState {
   data: string[];
-  loading: boolean;
+  loading:boolean;
 }
 export interface Data {
   body: string;
