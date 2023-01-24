@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tweetReducer from "./tweetSlice";
+import createSagaMiddleware from "redux-saga";
+import {fetchSaga} from "./tweetSlice";
 
+const saga = createSagaMiddleware();
 
 const store = configureStore({
-    reducer: tweetReducer
-})
+  reducer: tweetReducer,
+  middleware:[saga]
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+saga.run(fetchSaga);
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export default store
+export default store;
